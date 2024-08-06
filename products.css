@@ -1,0 +1,164 @@
+:root {     
+    --color-primary: #fde428;
+    --color-primaryd: #fde428b2;
+    --color-secundary: #e42000;
+
+ }
+
+/* products.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-primary);
+}
+
+.product-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.back-button {
+    background: red;
+    border: none;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+.product-image {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-info .price {
+    margin-left: 10px;
+    font-weight: normal; /* Ajusta el peso de la fuente si es necesario */
+}
+
+.product-info {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-info h1 {
+    display: flex;
+    align-items: center;
+}
+
+.product-info p {
+    margin: 0 0 20px;
+    font-size: 1rem;
+    color: #666666;
+}
+
+.options {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.options h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.option-group {
+    margin-bottom: 20px;
+}
+
+.option-group h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.option-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-to-cart {
+    background-color: #ff6600;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .product-detail {
+        padding: 10px;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .product-info p {
+        font-size: 0.9rem;
+    }
+
+    .options h2 {
+        font-size: 1.3rem;
+    }
+
+    .option-group h3 {
+        font-size: 1rem;
+    }
+
+    .add-to-cart {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+/* Estilo para el botón flotante del carrito */
+#cart-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--color-secundary);
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 50px; /* Cambiado a 50px para hacer el botón más ovalado */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-size: 16px; /* Ajusta el tamaño del texto */
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+#cart-icon {
+    font-size: 24px; /* Ajusta el tamaño del icono */
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+
+#cart-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#item-count {
+    font-size: 16px;
+    color: white;
+}
+
+#cart-total {
+    font-size: 14px;
+    color: white;
+}

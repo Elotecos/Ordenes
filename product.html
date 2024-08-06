@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto</title>
+    <link rel="stylesheet" href="products.css">
+    <link rel="icon" href="Logo_Elotecos.png" type="Elotecos-icon">
+    <script type="module" src="product.js" defer></script>
+</head>
+<body>
+    <div class="product-detail">
+        <button class="back-button" onclick="window.history.back()">←</button>
+        <img class="product-image" src="" alt="Imagen del Producto">
+        <div class="product-info">
+            <h1></h1>
+            <p></p>
+            <div class="price"></div>
+            <div class="options"></div>
+            <button class="add-to-cart">Añadir a la Orden</button>
+        </div>
+    </div>
+    <!-- Botón flotante del carrito -->
+    <div id="cart-button" onclick="window.location.href='cart.html'">
+        <div id="cart-info">
+            <span id="item-count">0</span> <!-- Contador de productos -->
+            <span id="cart-total">$0.00</span> <!-- Total del carrito -->
+        </div>
+        <span id="cart-icon">🛒</span>
+    </div>
+    
+    
+</body>
+</html>

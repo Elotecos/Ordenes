@@ -1,0 +1,227 @@
+:root {     
+       --color-primary: #fdbc00;
+       --color-box: #fde428;
+       --color-primaryd: #fde428b2;
+       --color-secundary: #e42000;
+       --color-logo: #fdbc00;
+
+    }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--color-secundary);
+}
+
+header {
+    background-color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 100px; /* Ajusta el tamaño de la imagen */
+    height: auto;
+    margin-right: 20px; /* Espacio entre el logo y el texto */
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#open-info {
+    margin-top: 10px; /* Espacio entre el título y los <h3> */
+}
+
+h1, #open-info h3 {
+    margin: 0;
+}
+
+#status-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#status-bullet {
+    width: 15px; /* Tamaño de la bolita */
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 10px; /* Espacio entre la bolita y el texto */
+}
+
+.bullet.red {
+    background-color: red;
+}
+
+.bullet.green {
+    background-color: green;
+}
+
+
+nav.horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    background-color: var(--color-primary);
+    padding: 0;
+}
+
+nav.horizontal-scroll button {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 20px; /* Cambia el tamaño de la fuente aquí */
+}
+
+nav.horizontal-scroll button:hover {
+    background-color: var(--color-secundary);
+}
+
+main {
+    padding: 1rem;
+}
+/* Product container styles */
+.product-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 10px;
+}
+
+.product {
+    background-color: var(--color-box);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px --color-primaryd;
+    padding: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.product img {
+    max-height: 250px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.product h2 {
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+.product p {
+    font-size: 23px;
+    color: #555;
+}
+
+.product:hover {
+    transform: scale(1.02);
+}
+
+.product-options, .product-sizes {
+    margin-top: 10px;
+}
+
+.product-options label, .product-sizes label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.product-options select, .product-sizes select {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Responsive styles */
+@media (min-width: 600px) {
+    .product-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 900px) {
+    .product-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 5px;
+    background-color: var(--color-primary);
+    color: black;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+footer p {
+    margin: 0;
+    padding-right: 10px;
+}
+
+footer .social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+footer .social-icons a img {
+    vertical-align: middle;
+}
+
+/* Estilo para el botón flotante del carrito */
+#cart-button {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    background-color: var(--color-secundary);
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 50px; /* Cambiado a 50px para hacer el botón más ovalado */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-size: 16px; /* Ajusta el tamaño del texto */
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+#cart-icon {
+    font-size: 24px; /* Ajusta el tamaño del icono */
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+
+#cart-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#item-count {
+    font-size: 16px;
+    color: white;
+}
+
+#cart-total {
+    font-size: 14px;
+    color: white;
+}
