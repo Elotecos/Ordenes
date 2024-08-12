@@ -75,45 +75,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sendWhatsAppOrder() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        if (cart.length === 0) {
-            alert('No tienes productos en tu carrito.');
-            return;
-        }
-    
-        // Obtener detalles del cliente
-        const customerName = document.getElementById('customer-name').value.trim();
-        const customerPhone = document.getElementById('customer-phone').value.trim();
-    
-        // Verificar que se ingresen nombre y número
-        if (!customerName || !customerPhone) {
-            alert('Por favor, ingresa tu nombre y número de teléfono.');
-            return;
-        }
-    
-        let message = `Hola, soy ${customerName}. Quiero hacer una orden:\n\n`;
-        cart.forEach(item => {
-            const itemPrice = typeof item.price === 'number' ? item.price : 0; // Asegurar que el precio es un número
-            message += `- ${item.title} ${item.size ? `(Tamaño: ${item.size})` : ''} x${item.quantity}\n`;
-            if (item.options) {
-                const optionsText = formatOptions(item.options);
-                if (optionsText) {
-                    message += `  Opciones:\n${optionsText}\n`;
-                }
-            }
-            if (item.customText) {
-                message += `  Detalles adicionales: ${item.customText}\n`;
-            }
-            message += `  Precio: $${itemPrice.toFixed(2)}\n\n`;
-        });
-    
-        const total = cart.reduce((sum, item) => sum + ((typeof item.price === 'number' ? item.price : 0) * item.quantity), 0);
-        message += `Total: $${total.toFixed(2)}\n\n`;
-        message += `Mi número es: ${customerPhone}`;
-    
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`, '_blank');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        alert('No tienes productos en tu carrito.');
+        return;
     }
+
+    // Obtener detalles del cliente
+    const customerName = document.getElementById('customer-name').value.trim();
+    const customerPhone = document.getElementById('customer-phone').value.trim();
+    const customerAddress = document.getElementById('customer-address').value.trim();
+    const customerPayment = document.getElementById('customer-payment').value;
+
+    // Verificar que se ingresen nombre, número, y dirección
+    if (!customerName || !customerPhone || !customerAddress) {
+        alert('Por favor, ingresa tu nombre, número de teléfono y dirección.');
+        return;
+    }
+
+    let message = `Hola, soy ${customerName}. Quiero hacer una orden:\n\n`;
+    cart.forEach(item => {
+        const itemPrice = typeof item.price === 'number' ? item.price : 0; // Asegurar que el precio es un número
+        message += `- ${item.title} ${item.size ? `(Tamaño: ${item.size})` : ''} x${item.quantity}\n`;
+        if (item.options) {
+            const optionsText = formatOptions(item.options);
+            if (optionsText) {
+                message += `  Opciones:\n${optionsText}\n`;
+            }
+        }
+        if (item.customText) {
+            message += `  Detalles adicionales: ${item.customText}\n`;
+        }
+        message += `  Precio: $${itemPrice.toFixed(2)}\n\n`;
+    });
+
+    const total = cart.reduce((sum, item) => sum + ((typeof item.price === 'number' ? item.price : 0) * item.quantity), 0);
+    message += `Total: $${total.toFixed(2)}\n\n`;
+    message += `Dirección: ${customerAddress}\n`;
+    message += `Método de pago: ${customerPayment}\n\n`;
+    message += `Mi número es: ${customerPhone}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`, '_blank');
+}
+
     
 
     // Añade los event listeners al cargar el DOM
