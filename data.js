@@ -42,12 +42,14 @@ export const verduraOptions = [
 
 export const extrasOptions = [
     { name: "Volcano", price: 10.00 },
+    { name: "Porción de pastor", price: 25.00 },
+    { name: "Porción de suadero", price: 25.00 },
+    { name: "Papa cambray", price: 20.00},
     { name: "Cobertura de Doritos", price: 10.00 },
     { name: "Cobertura de Ruffles", price: 10.00 },
     { name: "Cobertura de Chetos Flamin", price: 10.00 },
     { name: "Cobertura de Takis", price: 10.00 },
-    { name: "Porción de pastor", price: 25.00 },
-    { name: "Porción de suadero", price: 25.00 },
+    
 ];
 
 export const saborPreparadas = [

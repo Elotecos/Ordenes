@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCartDisplay() {
         const cartItemsContainer = document.getElementById('cart-items');
         const cartTotalContainer = document.getElementById('cart-total');
+        const shippingCostElement = document.getElementById('shipping-cost');
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const orderType = document.getElementById('order-type').value;
         
         if (cartItemsContainer && cartTotalContainer) {
             cartItemsContainer.innerHTML = '';
@@ -32,7 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 cartItemsContainer.appendChild(itemElement);
                 total += itemPrice * item.quantity;
             });
-            cartTotalContainer.textContent = `Total: $${total.toFixed(2)}`;
+
+            // Añadir costo de envío si es necesario
+            if (orderType === 'domicilio') {
+                const shippingCost = 25;
+                shippingCostElement.style.display = 'flex'; // Mostrar el costo de envío
+                cartTotalContainer.style.marginBottom = '10px'; // Añadir margen al total
+                cartTotalContainer.textContent = `Total: $${(total + shippingCost).toFixed(2)}`;
+            } else {
+                shippingCostElement.style.display = 'none'; // Ocultar el costo de envío
+                cartTotalContainer.style.marginBottom = '0'; // Restablecer margen
+                cartTotalContainer.textContent = `Total: $${total.toFixed(2)}`;
+            }
             
             // Añadir event listeners a los botones de borrar
             const removeButtons = document.querySelectorAll('.remove-item');
@@ -64,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
-        return formattedOptions.trim();
+        return formattedOptions;
     }
 
     function removeFromCart(index) {
@@ -74,56 +87,87 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartDisplay();
     }
 
-    function sendWhatsAppOrder() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart.length === 0) {
-        alert('No tienes productos en tu carrito.');
-        return;
-    }
+    function toggleAddressField() {
+        const orderType = document.getElementById('order-type').value;
+        const addressSection = document.getElementById('address-section');
+        const shippingCostElement = document.getElementById('shipping-cost');
+        const newTotalElement = document.getElementById('cart-total');
 
-    // Obtener detalles del cliente
-    const customerName = document.getElementById('customer-name').value.trim();
-    const customerPhone = document.getElementById('customer-phone').value.trim();
-    const customerAddress = document.getElementById('customer-address').value.trim();
-    const customerPayment = document.getElementById('customer-payment').value;
-
-    // Verificar que se ingresen nombre, número, y dirección
-    if (!customerName || !customerPhone || !customerAddress) {
-        alert('Por favor, ingresa tu nombre, número de teléfono y dirección.');
-        return;
-    }
-
-    let message = `Hola, soy ${customerName}. Quiero hacer una orden:\n\n`;
-    cart.forEach(item => {
-        const itemPrice = typeof item.price === 'number' ? item.price : 0; // Asegurar que el precio es un número
-        message += `- ${item.title} ${item.size ? `(Tamaño: ${item.size})` : ''} x${item.quantity}\n`;
-        if (item.options) {
-            const optionsText = formatOptions(item.options);
-            if (optionsText) {
-                message += `  Opciones:\n${optionsText}\n`;
+        if (orderType === 'domicilio') {
+            addressSection.style.display = 'block';
+            if (shippingCostElement) {
+                shippingCostElement.style.display = 'flex'; // Mostrar el costo de envío
+            }
+        } else {
+            addressSection.style.display = 'none';
+            if (shippingCostElement) {
+                shippingCostElement.style.display = 'none'; // Ocultar el costo de envío
             }
         }
-        if (item.customText) {
-            message += `  Detalles adicionales: ${item.customText}\n`;
+
+        // Actualizar el total
+        updateCartDisplay();
+    }
+    
+    
+    function sendWhatsAppOrder() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart.length === 0) {
+            alert('No tienes productos en tu carrito.');
+            return;
         }
-        message += `  Precio: $${itemPrice.toFixed(2)}\n\n`;
-    });
-
-    const total = cart.reduce((sum, item) => sum + ((typeof item.price === 'number' ? item.price : 0) * item.quantity), 0);
-    message += `Total: $${total.toFixed(2)}\n\n`;
-    message += `Dirección: ${customerAddress}\n`;
-    message += `Método de pago: ${customerPayment}\n\n`;
-    message += `Mi número es: ${customerPhone}`;
-
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`, '_blank');
-}
-
+    
+        // Obtener detalles del cliente
+        const customerName = document.getElementById('customer-name').value.trim();
+        const customerPhone = document.getElementById('customer-phone').value.trim();
+        const customerAddress = document.getElementById('customer-address').value.trim();
+        const customerPayment = document.getElementById('customer-payment').value;
+        const orderType = document.getElementById('order-type').value;
+    
+        // Verificar que se ingresen nombre, número, y dirección si es necesario
+        if (!customerName || !customerPhone || (orderType === 'domicilio' && !customerAddress)) {
+            alert('Por favor, ingresa tu nombre, número de teléfono y, si el pedido es a domicilio, tu dirección.');
+            return;
+        }
+    
+        let message = `Hola, soy ${customerName}. Quiero hacer una orden:\n\n`;
+        cart.forEach(item => {
+            const itemPrice = typeof item.price === 'number' ? item.price : 0; // Asegurar que el precio es un número
+            message += `- ${item.title} ${item.size ? `(Tamaño: ${item.size})` : ''} x${item.quantity}\n`;
+            if (item.options) {
+                const optionsText = formatOptions(item.options);
+                if (optionsText) {
+                    message += `  Opciones:\n${optionsText}\n`;
+                }
+            }
+            if (item.customText) {
+                message += `  Detalles adicionales: ${item.customText}\n`;
+            }
+            message += `  Precio: $${itemPrice.toFixed(2)}\n\n`;
+        });
+    
+        let total = cart.reduce((sum, item) => sum + ((typeof item.price === 'number' ? item.price : 0) * item.quantity), 0);
+    
+        // Añadir costo de envío si es necesario
+        if (orderType === 'domicilio') {
+            const shippingCost = 25;
+            total += shippingCost;
+            message += `- Envío a domicilio: $${shippingCost.toFixed(2)}\n`;
+        }
+    
+        message += `Total: $${total.toFixed(2)}\n\n`;
+        message += `Dirección: ${customerAddress}\n`;
+        message += `Método de pago: ${customerPayment}\n\n`;
+        message += `Mi número es: ${customerPhone}`;
+    
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`, '_blank');
+    }
     
 
-    // Añade los event listeners al cargar el DOM
-    document.querySelector('button[onclick="sendWhatsAppOrder()"]').addEventListener('click', sendWhatsAppOrder);
-
-    // Llama a la función para actualizar la visualización del carrito al cargar el DOM
     updateCartDisplay();
+
+    // Añadir eventos
+    document.getElementById('order-type').addEventListener('change', toggleAddressField);
+    document.getElementById('send-order').addEventListener('click', sendWhatsAppOrder);
 });
