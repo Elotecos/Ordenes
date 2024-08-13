@@ -1,4 +1,5 @@
-:root {     
+/* Estilos globales y variables */
+:root {
     --color-primary: #fdbc00;
     --color-box: #fde428;
     --color-primaryd: #fde428b2;
@@ -11,6 +12,41 @@ body {
     margin: 20px;
 }
 
+/* Estilos para el formulario */
+div {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: var(--color-secundary);
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="tel"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+/* Sección de dirección que se oculta/muestra dinámicamente */
+#address-section {
+    display: none; /* Ocultar por defecto */
+}
+
+/* Estilos de la cabecera */
 .header {
     display: flex;
     align-items: center;
@@ -31,6 +67,7 @@ body {
     margin: 0;
 }
 
+/* Estilos de los elementos del carrito */
 .cart-item-row {
     display: flex;
     justify-content: space-between;
@@ -64,16 +101,25 @@ body {
     background-color: darkred;
 }
 
-#cart-total, #shipping-cost {
+#cart-total-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinea el contenido a la derecha */
     font-size: 1.2em;
     margin-top: 10px;
-    text-align: right;
 }
 
-#address-section {
+#shipping-cost {
     display: none; /* Ocultar por defecto */
+    text-align: right; /* Alineación del texto a la derecha */
 }
 
+#cart-total {
+    text-align: right; /* Alineación del texto a la derecha */
+}
+
+
+/* Estilos generales para botones */
 button {
     display: block;
     margin: 20px auto;
@@ -90,6 +136,7 @@ button:hover {
     background-color: #45a049;
 }
 
+/* Detalles del cliente */
 .customer-details {
     margin-top: 20px;
 }

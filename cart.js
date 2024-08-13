@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const orderType = document.getElementById('order-type').value;
         const addressSection = document.getElementById('address-section');
         const shippingCostElement = document.getElementById('shipping-cost');
-        const newTotalElement = document.getElementById('cart-total');
 
         if (orderType === 'domicilio') {
             addressSection.style.display = 'block';
@@ -108,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Actualizar el total
         updateCartDisplay();
     }
-    
     
     function sendWhatsAppOrder() {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -156,18 +154,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         message += `Total: $${total.toFixed(2)}\n\n`;
-        message += `Dirección: ${customerAddress}\n`;
-        message += `Método de pago: ${customerPayment}\n\n`;
-        message += `Mi número es: ${customerPhone}`;
+        if (orderType === 'domicilio') {
+            message += `Dirección: ${customerAddress}\n`;
+        }
+        message += `Método de pago: ${customerPayment}\n`;
+        message += `Teléfono: ${customerPhone}`;
     
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`, '_blank');
     }
-    
 
+    // Actualizar la visualización del carrito al cargar la página
     updateCartDisplay();
-
-    // Añadir eventos
+    
+    // Manejar cambio en el tipo de pedido
     document.getElementById('order-type').addEventListener('change', toggleAddressField);
+    
+    // Enviar el pedido por WhatsApp
     document.getElementById('send-order').addEventListener('click', sendWhatsAppOrder);
 });

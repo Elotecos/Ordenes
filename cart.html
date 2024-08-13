@@ -3,48 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orden hasta el momento</title>
+    <title>Carrito</title>
+    <link rel="icon" href="Logo_Elotecos.png" type="Elotecos-icon">
     <link rel="stylesheet" href="cart.css">
-    <link rel="icon" href="Logo_Elotecos.png" type="image/png">
 </head>
 <body>
-    <div class="header">
-        <button onclick="window.location.href='index.html'">Volver al menú</button>
-        <h1>Orden hasta el momento</h1>
-    </div>
+    <h1>Orden hasta el momento</h1>
+    
     <div id="cart-items"></div>
-    <div id="shipping-cost" style="display: none;" class="cart-item-row">
-        <div class="cart-item-title">Costo de envío</div>
-        <div class="cart-item-price">$25.00</div>
+    
+    <div id="cart-total-container">
+        <div id="shipping-cost">Envío: $25.00</div>
+        <div id="cart-total">Total: $125.00</div>
     </div>
-    <div id="cart-total">Total: $0.00</div>
-    <div class="customer-details">
-        <label for="order-type">Pedido para:</label>
-        <select id="order-type" onchange="toggleAddressField()">
+    
+
+    <div>
+        <label for="order-type">Tipo de pedido:</label>
+        <select id="order-type">
             <option value="local">Pasar al local</option>
             <option value="domicilio">Envío a domicilio</option>
         </select>
-    
+    </div>
+
+    <div id="address-section" style="display: none;">
+        <label for="customer-address">Dirección:</label>
+        <input type="text" id="customer-address">
+    </div>
+
+    <div>
         <label for="customer-name">Nombre:</label>
-        <input type="text" id="customer-name" placeholder="Tu nombre" required>
-        
-        <label for="customer-phone">Número para contactar:</label>
-        <input type="tel" id="customer-phone" placeholder="Tu número de teléfono" required>
-    
-        <div id="address-section" style="display: none;">
-            <label for="customer-address">Dirección:</label>
-            <input type="text" id="customer-address" placeholder="Tu dirección">
-        </div>
-    
+        <input type="text" id="customer-name" required>
+    </div>
+
+    <div>
+        <label for="customer-phone">Teléfono:</label>
+        <input type="tel" id="customer-phone" required>
+    </div>
+
+    <div>
         <label for="customer-payment">Método de pago:</label>
         <select id="customer-payment">
-            <option value="Efectivo (cambio exacto)">Efectivo (exacto)</option>
-            <option value="Efectivo (con cambio)">Efectivo (cambio)</option>
-            <option value="Transferencia">Transferencia</option>
+            <option value="efectivo exacto">Efectivo exacto</option>
+            <option value="efectivo cambio">Efectivo con cambio</option>
+            <option value="transferencia">Transferencia</option>
         </select>
     </div>
-    
-    <button onclick="sendWhatsAppOrder()">Enviar Orden</button>
+
+    <button id="send-order">Enviar pedido por WhatsApp</button>
+
     <script src="cart.js"></script>
 </body>
 </html>
