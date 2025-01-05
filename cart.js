@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (orderType === 'domicilio') {
             addressSection.style.display = 'block';
             if (shippingCostElement) {
-                shippingCostElement.style.display = 'flex'; // Mostrar el costo de envío
+                shippingCostElement.style.display = 'block'; // Mostrar el costo de envío
             }
         } else {
             addressSection.style.display = 'none';

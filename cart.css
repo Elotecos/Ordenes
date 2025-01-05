@@ -11,7 +11,23 @@ body {
     font-family: Arial, sans-serif;
     margin: 20px;
 }
+.back-arrow {
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
 
+.back-arrow:hover {
+    color: #007BFF; /* Cambia el color al pasar el mouse */
+}
+
+.back-arrow span {
+    margin-left: 8px;
+}
 /* Estilos para el formulario */
 div {
     margin-bottom: 15px;
